@@ -18,7 +18,7 @@ if len(sys.argv) > 5:
 a = third.CSECOND(name_a,fl)
 b = third.CSECOND(name_b,fl)
 
-a.output("aaa.txt");
+
 if z == "+":
 	res = third.CSECOND.plus(a,b)
 if z == "-":
