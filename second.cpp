@@ -11,10 +11,19 @@ CSECOND::CSECOND()
 }
 
 //constr from file
-CSECOND::CSECOND(char *fileName)
+CSECOND::CSECOND(char *fileName, int flag)
 {
-	sign = new int;
-	str_num = reverse(input(fileName,sign));
+	if (flag == 0)
+	{
+		sign = new int;
+		str_num = reverse(input(fileName,sign));
+	}
+	else
+	{
+		sign = new int;
+		*sign = 0;	
+		str_num = reverse(input_bin(fileName));
+	}	
 }
 
 //one more constr
@@ -39,7 +48,7 @@ const CSECOND CSECOND::plus(const CSECOND& left, const CSECOND& right)
 	if(*left.sign && *right.sign)//- -
 	{
 		temp = add(left.str_num, right.str_num);
-		s = 0;
+		s = 1;
 	}
 	if(!*left.sign && *right.sign)//+ -
 	{
@@ -229,8 +238,8 @@ const CSECOND CSECOND::power(const CSECOND& left, const CSECOND& right)
 	return CSECOND(temp, s);
 }
 
-/*------------------------PRINT---------------------------------*/
-void CSECOND::print(char *fileN)
+/*------------------------OUTPUT---------------------------------*/
+void CSECOND::output(char *fileN)
 {
 	FILE *F = fopen(fileN, "w");
 
@@ -242,4 +251,16 @@ void CSECOND::print(char *fileN)
 		fprintf(F, "%c",t1[i]);
 
 	fclose(F);
+}
+
+void CSECOND::b_output(char *fileN)
+{
+	output_bin(fileN, str_num);	
+}
+
+
+void CSECOND::PRINTOUT()
+{
+	printf("%d", lenstr(str_num));
+	printf("%s", lenstr);
 }
