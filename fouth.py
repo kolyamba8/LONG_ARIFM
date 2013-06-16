@@ -1,0 +1,43 @@
+import sys
+import third
+
+name_a = sys.argv[1]
+z = sys.argv[2]
+name_b = sys.argv[3]
+name_res = sys.argv[4]
+name_mod = 0
+fl = 0;
+if len(sys.argv) > 5:
+	if sys.argv[5] == "-b":
+		fl = 1;
+		if len(sys.argv) > 6:
+			name_mod = sys.argv[6]
+	else:
+		name_mod = sys.argv[5]
+
+a = third.CSECOND(name_a,fl)
+b = third.CSECOND(name_b,fl)
+
+a.output("aaa.txt");
+if z == "+":
+	res = third.CSECOND.plus(a,b)
+if z == "-":
+	res = third.CSECOND.minus(a,b)
+if z == "mul":
+	res = third.CSECOND.multiply(a,b)
+if z == "/":
+	res = third.CSECOND.divide(a,b)
+if z == "^":
+	res = third.CSECOND.power(a,b)
+if z == "%":
+	res = third.CSECOND.module(a,b)
+
+if name_mod != 0:
+	mod = third.CSECOND(name_mod,fl)
+	res = third.CSECOND.module(res,mod)
+
+if fl == 1:
+	res.b_output(name_res)
+else:
+	res.output(name_res)
+

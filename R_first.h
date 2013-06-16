@@ -1,0 +1,17 @@
+unsigned char* input(char *fileName, int *s);
+unsigned char* reverse(unsigned char* t1);
+void print(unsigned char *t1, int *s);
+int equal(unsigned char *t1, unsigned char *t2);
+int greater(unsigned char *t1, unsigned char *t2);
+int less(unsigned char *t1, unsigned char *t2);
+char* cutzero(char *t1);
+unsigned char* add(unsigned char *t1, unsigned char *t2);
+unsigned char* sub(unsigned char *t1, unsigned char *t2);
+unsigned char* mul(unsigned char *t1, unsigned char* t2);
+unsigned char* mulN(unsigned char *t1, long t2);
+unsigned char* deg(unsigned char *t1, unsigned char *t2);
+unsigned char* mod(unsigned char *t1, unsigned char *t2);
+unsigned char *pows(unsigned char *t1, unsigned char *t2);
+unsigned char* levelup(unsigned char *t1);
+unsigned char* leveldown(unsigned char *t1);
+int lenstr(unsigned char *t1);
