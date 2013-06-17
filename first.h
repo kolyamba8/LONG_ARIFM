@@ -15,3 +15,5 @@ unsigned char *pows(unsigned char *t1, unsigned char *t2);
 unsigned char* levelup(unsigned char *t1);
 unsigned char* leveldown(unsigned char *t1);
 int lenstr(unsigned char *t1);
+unsigned char* input_bin(char *fileName);
+void output_bin(char *fileName, unsigned char *t1);
