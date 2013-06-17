@@ -36,43 +36,43 @@ CSECOND::CSECOND(unsigned char *str, int s)
 
 
 /*------------------------ADDITION---------------------------------*/
-const CSECOND CSECOND::plus(const CSECOND& left, const CSECOND& right)
+CSECOND CSECOND::operator+(CSECOND left)
 {
 	unsigned char *temp = NULL;
 	int s;
-	if(!*left.sign && !*right.sign)//+ +
+	if(!*left.sign && !*sign)//+ +
 	{
-		temp = add(left.str_num, right.str_num);
+		temp = add(left.str_num, str_num);
 		s = 0;
 	}
-	if(*left.sign && *right.sign)//- -
+	if(*left.sign && *sign)//- -
 	{
-		temp = add(left.str_num, right.str_num);
+		temp = add(left.str_num, str_num);
 		s = 1;
 	}
-	if(!*left.sign && *right.sign)//+ -
+	if(!*left.sign && *sign)//+ -
 	{
-		if(greater(left.str_num,right.str_num) || equal(left.str_num,right.str_num))
+		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
 		{
-			temp = sub(left.str_num,right.str_num);
+			temp = sub(left.str_num,str_num);
 			s = 0;
 		}
 		else
 		{
-			temp = sub(right.str_num,left.str_num);
+			temp = sub(str_num,left.str_num);
 			s = 1;
 		}
 	}
-	if(*left.sign && !*right.sign)//- +
+	if(*left.sign && !*sign)//- +
 	{
-		if(greater(left.str_num,right.str_num) || equal(left.str_num,right.str_num))
+		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
 		{
-			temp = sub(left.str_num,right.str_num);
+			temp = sub(left.str_num,str_num);
 			s = 1;
 		}
 		else
 		{
-			temp = sub(right.str_num,left.str_num);
+			temp = sub(str_num,left.str_num);
 			s = 0;
 		}
 	}
@@ -81,74 +81,74 @@ const CSECOND CSECOND::plus(const CSECOND& left, const CSECOND& right)
 }
 
 /*------------------------SUBMISSION---------------------------------*/
-const CSECOND CSECOND::minus(const CSECOND& left, const CSECOND& right)
+CSECOND CSECOND::operator-(CSECOND left)
 {
 	unsigned char *temp = NULL;
 	int s;
-	if(!*left.sign && !*right.sign)//+ +
+	if(!*left.sign && !*sign)//+ +
 	{
-		if(greater(left.str_num,right.str_num) || equal(left.str_num,right.str_num))
+		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
 		{
-			temp = sub(left.str_num,right.str_num);
+			temp = sub(left.str_num,str_num);
 			s = 0;
 		}
 		else
 		{
-			temp = sub(right.str_num,left.str_num);
+			temp = sub(str_num,left.str_num);
 			s = 1;
 		}
 		
 	}
-	if(*left.sign && *right.sign)//- -
+	if(*left.sign && *sign)//- -
 	{
-		if(greater(left.str_num,right.str_num) || equal(left.str_num,right.str_num))
+		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
 		{
-			temp = sub(left.str_num,right.str_num);
+			temp = sub(left.str_num,str_num);
 			s = 1;
 		}
 		else
 		{
-			temp =  sub(right.str_num,left.str_num);
+			temp =  sub(str_num,left.str_num);
 			s = 0;
 		}
 		
 	}
-	if(!*left.sign && *right.sign)//+ -
+	if(!*left.sign && *sign)//+ -
 	{
-		temp =  add(left.str_num, right.str_num);
+		temp =  add(left.str_num, str_num);
 		s = 0;
 	}
-	if(*left.sign && !*right.sign)//- +
+	if(*left.sign && !*sign)//- +
 	{
-		temp =  add(left.str_num, right.str_num);
+		temp =  add(left.str_num, str_num);
 		s = 1;
 	}
 	return CSECOND(temp, s);
 }
 
 /*------------------------MULTIPLY---------------------------------*/
-const CSECOND CSECOND::multiply(const CSECOND& left, const CSECOND& right)
+CSECOND CSECOND::operator*(CSECOND left)
 {
 	unsigned char *temp= NULL;
 	int s;
-	if(!*left.sign && !*right.sign)//+ +
+	if(!*left.sign && !*sign)//+ +
 	{
-		temp = mul(left.str_num, right.str_num);
+		temp = mul(left.str_num, str_num);
 		s = 0;
 	}
-	if(*left.sign && *right.sign)//- -
+	if(*left.sign && *sign)//- -
 	{
-		temp = mul(left.str_num, right.str_num);
+		temp = mul(left.str_num, str_num);
 		s = 0;
 	}
-	if(!*left.sign && *right.sign)//+ -
+	if(!*left.sign && *sign)//+ -
 	{
-		temp = mul(left.str_num, right.str_num);
+		temp = mul(left.str_num, str_num);
 		s = 1;
 	}
-	if(*left.sign && !*right.sign)//- +
+	if(*left.sign && !*sign)//- +
 	{
-		temp = mul(left.str_num, right.str_num);
+		temp = mul(left.str_num, str_num);
 		s = 1;
 	}
 
@@ -156,31 +156,31 @@ const CSECOND CSECOND::multiply(const CSECOND& left, const CSECOND& right)
 }
 
 /*------------------------DIVIDE---------------------------------*/
-const CSECOND CSECOND::divide(const CSECOND& left, const CSECOND& right)
+CSECOND CSECOND::operator/(CSECOND left)
 {
 	unsigned char *temp= NULL;
 	int s;
-	if(equal(right.str_num,(unsigned char*)"0")) 
+	if(equal(str_num,(unsigned char*)"0")) 
 		throw "ERROR";
 
-	if(!*left.sign && !*right.sign)//+ +
+	if(!*left.sign && !*sign)//+ +
 	{
-		temp = deg(left.str_num, right.str_num);
+		temp = deg(left.str_num, str_num);
 		s = 0;
 	}
-	if(*left.sign && *right.sign)//- -
+	if(*left.sign && *sign)//- -
 	{
-		temp = deg(left.str_num, right.str_num);
+		temp = deg(left.str_num, str_num);
 		s = 0;
 	}
-	if(!*left.sign && *right.sign)//+ -
+	if(!*left.sign && *sign)//+ -
 	{
-		temp = deg(left.str_num, right.str_num);
+		temp = deg(left.str_num, str_num);
 		s = 1;
 	}
-	if(*left.sign && !*right.sign)//- +
+	if(*left.sign && !*sign)//- +
 	{
-		temp = deg(left.str_num, right.str_num);
+		temp = deg(left.str_num, str_num);
 		s = 1;
 	}
 
@@ -188,28 +188,28 @@ const CSECOND CSECOND::divide(const CSECOND& left, const CSECOND& right)
 }
 
 /*------------------------MODULE---------------------------------*/
-const CSECOND CSECOND::module(const CSECOND& left, const CSECOND& right) 
+CSECOND CSECOND::operator%(CSECOND left) 
 {
 	unsigned char *temp= NULL;
 	int s;
-	if(!*left.sign && !*right.sign)//+ +
+	if(!*left.sign && !*sign)//+ +
 	{
-		temp = mod(left.str_num, right.str_num);
+		temp = mod(left.str_num, str_num);
 		s = 0;
 	}
-	if(*left.sign && *right.sign)//- -
+	if(*left.sign && *sign)//- -
 	{
-		temp = mod(left.str_num, right.str_num);
+		temp = mod(left.str_num, str_num);
 		s = 0;
 	}
-	if(!*left.sign && *right.sign)//+ -
+	if(!*left.sign && *sign)//+ -
 	{
-		temp = mod(left.str_num, right.str_num);
+		temp = mod(left.str_num, str_num);
 		s = 1;
 	}
-	if(*left.sign && !*right.sign)//- +
+	if(*left.sign && !*sign)//- +
 	{
-		temp = mod(left.str_num, right.str_num);
+		temp = mod(left.str_num, str_num);
 		s = 1;
 	}
 
@@ -217,14 +217,14 @@ const CSECOND CSECOND::module(const CSECOND& left, const CSECOND& right)
 }
 
 /*------------------------POWER---------------------------------*/
-const CSECOND CSECOND::power(const CSECOND& left, const CSECOND& right) 
+CSECOND CSECOND::operator^(CSECOND left) 
 {
 	unsigned char *temp= NULL;
 	int s;
 	
 	if(*left.sign)
 	{
-		if(mod(right.str_num,(unsigned char*)"2"))
+		if(mod(str_num,(unsigned char*)"2"))
 			s = 0;
 		else
 			s = 1;
@@ -233,7 +233,7 @@ const CSECOND CSECOND::power(const CSECOND& left, const CSECOND& right)
 	{
 		s = 0;
 	}
-	temp = pows(right.str_num,left.str_num);
+	temp = pows(str_num,left.str_num);
 	
 	return CSECOND(temp, s);
 }

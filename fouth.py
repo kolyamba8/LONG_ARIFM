@@ -19,21 +19,21 @@ a = third.CSECOND(name_a,fl)
 b = third.CSECOND(name_b,fl)
 
 if z == "+":
-	res = third.CSECOND.plus(a,b)
+	res = a + b
 if z == "-":
-	res = third.CSECOND.minus(a,b)
+	res = a - b
 if z == "mul":
-	res = third.CSECOND.multiply(a,b)
+	res = a * b
 if z == "/":
-	res = third.CSECOND.divide(a,b)
+	res = a / b
 if z == "^":
-	res = third.CSECOND.power(a,b)
+	res = a ^ b
 if z == "%":
-	res = third.CSECOND.module(a,b)
+	res = a % b
 
 if name_mod != 0:
 	mod = third.CSECOND(name_mod,fl)
-	res = third.CSECOND.module(res,mod)
+	res %= mod
 
 if fl == 1:
 	res.b_output(name_res)
