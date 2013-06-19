@@ -577,7 +577,7 @@ unsigned char* copy(unsigned char* t1)
 unsigned char* reverse(unsigned char* t1)
 {
 	int i;
-	check(t1);
+//	check(t1);
 	unsigned char *t2 = (unsigned char*)malloc(sizeof(unsigned char)*lenstr(t1));
 	t2[lenstr(t1)] = '\0';
 	
@@ -588,7 +588,7 @@ unsigned char* reverse(unsigned char* t1)
 		i++;
 	}
 	t2[i] = '\0';
-	check(t2);
+	//check(t2);
 	return t2;
 }
 
