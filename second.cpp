@@ -42,19 +42,19 @@ CSECOND CSECOND::operator+(CSECOND left)
 	int s;
 	if(!*left.sign && !*sign)//+ +
 	{
-		temp = add(left.str_num, str_num);
+		temp = add(str_num,left.str_num);
 		s = 0;
 	}
 	if(*left.sign && *sign)//- -
 	{
-		temp = add(left.str_num, str_num);
+		temp = add(str_num,left.str_num);
 		s = 1;
 	}
 	if(!*left.sign && *sign)//+ -
 	{
-		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
+		if(greater(str_num,left.str_num) || equal(str_num,left.str_num))
 		{
-			temp = sub(left.str_num,str_num);
+			temp = sub(str_num,left.str_num);
 			s = 0;
 		}
 		else
@@ -65,9 +65,9 @@ CSECOND CSECOND::operator+(CSECOND left)
 	}
 	if(*left.sign && !*sign)//- +
 	{
-		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
+		if(greater(str_num,left.str_num) || equal(str_num,left.str_num))
 		{
-			temp = sub(left.str_num,str_num);
+			temp = sub(str_num,left.str_num);
 			s = 1;
 		}
 		else
@@ -87,9 +87,9 @@ CSECOND CSECOND::operator-(CSECOND left)
 	int s;
 	if(!*left.sign && !*sign)//+ +
 	{
-		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
+		if(greater(str_num,left.str_num) || equal(str_num,left.str_num))
 		{
-			temp = sub(left.str_num,str_num);
+			temp = sub(str_num,left.str_num);
 			s = 0;
 		}
 		else
@@ -101,9 +101,9 @@ CSECOND CSECOND::operator-(CSECOND left)
 	}
 	if(*left.sign && *sign)//- -
 	{
-		if(greater(left.str_num,str_num) || equal(left.str_num,str_num))
+		if(greater(str_num,left.str_num) || equal(str_num,left.str_num))
 		{
-			temp = sub(left.str_num,str_num);
+			temp = sub(str_num,left.str_num);
 			s = 1;
 		}
 		else
@@ -115,12 +115,12 @@ CSECOND CSECOND::operator-(CSECOND left)
 	}
 	if(!*left.sign && *sign)//+ -
 	{
-		temp =  add(left.str_num, str_num);
+		temp =  add(str_num,left.str_num);
 		s = 0;
 	}
 	if(*left.sign && !*sign)//- +
 	{
-		temp =  add(left.str_num, str_num);
+		temp =  add(str_num,left.str_num);
 		s = 1;
 	}
 	return CSECOND(temp, s);
@@ -133,22 +133,22 @@ CSECOND CSECOND::operator*(CSECOND left)
 	int s;
 	if(!*left.sign && !*sign)//+ +
 	{
-		temp = mul(left.str_num, str_num);
+		temp = mul(str_num,left.str_num);
 		s = 0;
 	}
 	if(*left.sign && *sign)//- -
 	{
-		temp = mul(left.str_num, str_num);
+		temp = mul(str_num,left.str_num);
 		s = 0;
 	}
 	if(!*left.sign && *sign)//+ -
 	{
-		temp = mul(left.str_num, str_num);
+		temp = mul(str_num,left.str_num);
 		s = 1;
 	}
 	if(*left.sign && !*sign)//- +
 	{
-		temp = mul(left.str_num, str_num);
+		temp = mul(str_num,left.str_num);
 		s = 1;
 	}
 
@@ -165,22 +165,22 @@ CSECOND CSECOND::operator/(CSECOND left)
 
 	if(!*left.sign && !*sign)//+ +
 	{
-		temp = deg(left.str_num, str_num);
+		temp = deg(str_num,left.str_num);
 		s = 0;
 	}
 	if(*left.sign && *sign)//- -
 	{
-		temp = deg(left.str_num, str_num);
+		temp = deg(str_num,left.str_num);
 		s = 0;
 	}
 	if(!*left.sign && *sign)//+ -
 	{
-		temp = deg(left.str_num, str_num);
+		temp = deg(str_num,left.str_num);
 		s = 1;
 	}
 	if(*left.sign && !*sign)//- +
 	{
-		temp = deg(left.str_num, str_num);
+		temp = deg(str_num,left.str_num);
 		s = 1;
 	}
 
@@ -194,22 +194,22 @@ CSECOND CSECOND::operator%(CSECOND left)
 	int s;
 	if(!*left.sign && !*sign)//+ +
 	{
-		temp = mod(left.str_num, str_num);
+		temp = mod(str_num,left.str_num);
 		s = 0;
 	}
 	if(*left.sign && *sign)//- -
 	{
-		temp = mod(left.str_num, str_num);
+		temp = mod(str_num,left.str_num);
 		s = 0;
 	}
 	if(!*left.sign && *sign)//+ -
 	{
-		temp = mod(left.str_num, str_num);
+		temp = mod(str_num,left.str_num);
 		s = 1;
 	}
 	if(*left.sign && !*sign)//- +
 	{
-		temp = mod(left.str_num, str_num);
+		temp = mod(str_num,left.str_num);
 		s = 1;
 	}
 

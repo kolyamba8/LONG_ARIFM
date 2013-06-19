@@ -3,175 +3,31 @@
 #include <stdio.h>
 #include "first.h"
 
-int osn, dop;
-/*-----------------COPY--------------------*/
-unsigned char* copy(unsigned char* t1)
-{
-	unsigned char *t2;
-	int a = lenstr(t1), i = 0;
-	t2 = (unsigned char*)malloc(sizeof(unsigned char)*a);
-	while(t1[i])
-	{
-		t2[i] = t1[i];
-		i++;
-	}
-	t2[i] = '\0';
-	return t2;
-	
-}
-/*-----------------INPUT-------------------*/
-unsigned char* input(char *fileName, int *s)
-{
-	FILE *f = fopen(fileName,"r");
-	int n = 0, i;
-	unsigned char temp;
-	unsigned char *t1;
-	int sign;
+int osn, dop, zapas = 50;
+/*----------------------------------------------------ARIPHMETIC----------------------------------------------------*/
 
-	fseek(f,0,SEEK_END);
-	n = ftell(f);
-	rewind(f);
-	temp = fgetc(f);
-
-	if(temp == '-') 
-	{
-		sign = 1;
-		t1 = (unsigned char*)malloc(sizeof(unsigned char)*n);
-		t1[n-1] = '\0';
-		
-	}
-	else
-	{
-		sign = 0;
-		t1 = (unsigned char*)malloc(sizeof(unsigned char)*(n+1));
-		t1[n] = '\0';
-		rewind(f);
-	}
-	
-	
-	i = 0;
-	while(i < n)
-	{
-		fscanf(f,"%c",&t1[i]);
-		i++;
-	}
-	t1[lenstr(t1)-1] = '\0';
-	fclose(f);
-	*s = sign;
-	osn = 10;
-	dop = 48;
-	return t1;
-}
-
-/*---------------REVERSE----------------*/
-unsigned char* reverse(unsigned char* t1)
-{
-	int i;
-	unsigned char *t2 = (unsigned char*)malloc(sizeof(unsigned char)*lenstr(t1));
-	t2[lenstr(t1)] = '\0';
-	
-	i = 0;
-	while(i < lenstr(t1))
-	{
-		t2[lenstr(t1)-1 -i] = t1[i];
-		i++;
-	}
- 
-	return t2;
-}
-
-/*-----------------PRINT----------------*/
-void print(unsigned char *t1, int *s)
-{
-	int n = lenstr(t1);
-	if(*s == '-')
-		printf("%c",'-');
-	int i = 0;
-	printf("%s", t1);
-	
-}
-
-/*-----------------EQUAL----------------*/
-int equal(unsigned char *t1, unsigned char *t2)
-{
-	int i = 0;
-	if (lenstr(t1) != lenstr(t2))
-		return 0;
-	while(i < lenstr(t1))
-	{
-		if (t1[i]!= t2[i])
-			return 0;
-		i++;
-	
-	}	
-	return 1;
-}
-
-/*-----------------GREATER----------------*/
-int greater(unsigned char *t1, unsigned char *t2)
-{
-	if (lenstr(t1) != lenstr(t2))
-			return lenstr(t1) > lenstr(t2);
-
-	int i = lenstr(t1)-1;
-	while(i >= 0)
-	{
-		if (t1[i]!=t2[i])
-			return t1[i]>t2[i];
-		i--;
-	}
-
-	return 0;
-}
-
-/*-----------------LESS----------------*/
-int less(unsigned char *t1, unsigned char *t2)
-{
-	if (lenstr(t1) != lenstr(t2))
-			return lenstr(t1) < lenstr(t2);
-
-	int i = lenstr(t1)-1;
-	while(i >= 0)
-	{
-		if (t1[i]!=t2[i])
-			return t1[i]<t2[i];
-		i--;
-	}
-	return 0;
-}
-
-/*--------------CUTZERO----------------*/
-char* cutzero(char *t1)
-{
-	while(t1[lenstr(t1)-1] == '0')
-	{
-		if(lenstr(t1) == 1 && t1[0] == '0') return t1;
-		t1[lenstr(t1)-1] = '\0';
-	}
-	return  t1;
-}
-
-/*--------------ADD----------------*/
+/*=========================ADD=============================*/
 unsigned char* add(unsigned char *t1, unsigned char *t2)
 {
-	//const int osn = 10;
 	int i,temp;
-	char unsigned r = 0;
-	char unsigned *a, *b, *c, *t;
+	int r = 0;
+	unsigned char *a, *b, *c, *t;
 	int lenA, lenB;
 	if(lenstr(t1) != lenstr(t2))
 	{
 		if(lenstr(t1) > lenstr(t2))
 		{
-			a = copy(t1);
-			b = (unsigned char*)malloc(sizeof(unsigned char)*lenstr(a));
+			a = t1;
+			lenA = lenstr(t1);
+			b = (unsigned char*)malloc(sizeof(unsigned char)*(lenA+zapas));
+			a[lenA] = '\0';
 			i = 0;
 			while(i < lenstr(t2))
 			{
 				b[i] = t2[i];
 				i++;
 			}
-			
+			b[i] = '\0';
 			i = lenstr(t2);
 			while(i < lenstr(t1))
 			{
@@ -183,16 +39,17 @@ unsigned char* add(unsigned char *t1, unsigned char *t2)
 		}
 		else
 		{
-			a = copy(t2);
+			a = t2;
 			lenA = lenstr(a);
-			b = (unsigned char*)malloc(sizeof(unsigned char)*lenA);
+			b = (unsigned char*)malloc(sizeof(unsigned char)*(lenA+zapas));
+			a[lenA] = '\0';
 			i = 0;
 			while(i < lenstr(t1))
 			{
 				b[i] = t1[i];
 				i++;
 			}
-
+			b[i] = '\0';
 			i = lenstr(t1);
 			while(i < lenstr(t2))
 			{
@@ -205,14 +62,18 @@ unsigned char* add(unsigned char *t1, unsigned char *t2)
 	}
 	else
 	{
-		a = copy(t1);
-		b = copy(t2);
+		a = t1;
+		b = t2;
 	}
 
 	lenA = lenstr(a);
-	c = (unsigned char*)malloc(sizeof(unsigned char)*(lenA+2));
+	c = (unsigned char*)malloc(sizeof(unsigned char)*((lenA+zapas)));
 	c[lenA+1] = '\0';
 	
+
+	check(a);
+	check(b);
+	check(c);
 	i = 0;
 	while(i < lenA+1)
 	{
@@ -224,8 +85,7 @@ unsigned char* add(unsigned char *t1, unsigned char *t2)
 	while(i < lenstr(a))
 	{
 		temp = a[i] + b[i] + r - dop;
-		//c[i] = a[i] + b[i] + r - 48;
-		if (temp >= dop + osn) //58
+		if (temp >= dop + osn)
 				{
 					temp-=osn;
 					r = 1;
@@ -237,13 +97,15 @@ unsigned char* add(unsigned char *t1, unsigned char *t2)
 	}
 	if(r) c[i] += r;
 
-	return cutzero(c);
+	
+	check(c);
+	c = cutzero(c);
+	return c;
 }
 
-/*--------------SUB----------------*/
+/*=========================SUB=============================*/
 unsigned char* sub(unsigned char *t1, unsigned char *t2)
 {
-	//const int osn = 10;
 	int i;
 	unsigned char *a, *b, *c, *t;
 	unsigned char r = 48;
@@ -262,7 +124,7 @@ unsigned char* sub(unsigned char *t1, unsigned char *t2)
 	else
 	{
 		a = copy(t1);
-		b = copy(t2);
+		b = t2;
 	}
 
 	
@@ -279,21 +141,21 @@ unsigned char* sub(unsigned char *t1, unsigned char *t2)
 	i = 0;
 	while(i < lenstr(a))
 	{
-		c[i] = a[i] - b[i] + dop;
-		if (c[i] < dop)
+		c[i] = a[i] - b[i] + 48;
+		if (c[i] < 48)
 		{
 			c[i]+=osn;
 			a[i+1]--;
 		}
 		i++;
-
 	}
-
-	return cutzero(c);
+	c[i] = '\0';
+	check(c);
+	c = cutzero(c);
+	return c;
 }
 
-
-/*--------------MUL----------------*/
+/*=========================MUL=============================*/
 unsigned char* mul(unsigned char *t1, unsigned char* t2)
 {
 	//const int osn = 10;
@@ -301,9 +163,10 @@ unsigned char* mul(unsigned char *t1, unsigned char* t2)
 	int i,j,l;
 	a = t1;
 	b = t2;
-	c = (unsigned char*)malloc(sizeof(unsigned char)*(lenstr(a)+lenstr(b)));
-	j = lenstr(a)+lenstr(b);
-	c[lenstr(a)+lenstr(b)] = '\0';
+	int lenA = lenstr(a), lenB = lenstr(b);
+	c = (unsigned char*)malloc(sizeof(unsigned char)*(lenA+lenB));
+	j = lenA+lenB;
+	c[lenA+lenB] = '\0';
 	
 	i = 0;
 	while(i < j)
@@ -329,13 +192,13 @@ unsigned char* mul(unsigned char *t1, unsigned char* t2)
 		if(r) c[i+j] += r;
 		i++;
 	}
-
-	return cutzero(c);
-
-
+	
+	check(c);
+	c = cutzero(c);
+	return c;
 }
 
-/*--------------MULN----------------*/
+/*=========================MULN=============================*/
 unsigned char* mulN(unsigned char *t1, long t2)
 {
 	unsigned char *b= NULL;
@@ -366,167 +229,163 @@ unsigned char* mulN(unsigned char *t1, long t2)
 		}
 		b[t2_lenth] = '\0';
 	}
-
-	return cutzero(mul(t1,b));
+	
+	t1 = mul(t1,b);
+	check(t1);
+	t1 = cutzero(t1);
+	return t1;
 }
 
 
-/*--------------DEG----------------*/
+/*=========================DEG=============================*/
 unsigned char* deg(unsigned char *t1, unsigned char *t2)
 {
-	unsigned char *a = NULL,*b= NULL,*c= NULL, *buf= NULL, *res= NULL;
-	int x,y,d,k,i;
-	int lenA, lenB, lenC;
-	unsigned char *z = (unsigned char*)malloc(sizeof(unsigned char)*2);
-	z[0] = '0';
-	z[1] = '\0';
-	res = (unsigned char*)malloc(sizeof(unsigned char)*1);
-	res[0] = '\0';
-	a = t1;
-	b = t2;
+	int len1 = lenstr(t1);
+	int len2 = lenstr(t2);
+	int i = 0, len;
+	unsigned char* res = (unsigned char*)malloc(sizeof(unsigned char)*(len1+len2+zapas));
+	res[0] = '0';
+	res[1] = '\0';
+	unsigned char* a = t1;
+	unsigned char *tempB, *tempRes, *tempRes2 = (unsigned char*)malloc(sizeof(unsigned char)*(len1+len2+zapas));
+	
+	unsigned char* c = copy(t2);
+	check(a);
+	check(c);
 
-	while(greater(a, b) || equal(a,b))
+	if(greater(c,a)) return "0";
+	else
 	{
-		lenB = lenstr(b);
-		c = (unsigned char*)malloc(sizeof(unsigned char)*(lenB+1));
-		c[lenB] = '\0';
-		lenA = lenstr(a);
-		lenC = lenB;
-		i = 0;
-		while(i < lenB)
+		i = 1;
+		while(greater(a,c) || equal(a,c))
 		{
-			c[i] = a[lenA+i-lenC];
-			i++;
-		}
-		//
-		if(less(c,b))
-		{
-			c = levelup(c);
-			c[0] = a[lenA-lenC-1];
-		}
-		//
-		x = 0;
-
-		while(less(mulN(b,x),c) || equal(mulN(b,x),c))
-			x++;
-		x--;
-
-		
-		res  = levelup(res);
-		res[0] = x + dop;
-
-		buf = mulN(b,x);
-
-		y = 0;
-		d = 1;
-		while(less(buf,a) || equal(buf,a))
-		{
-			y++;
-			buf = mulN(buf,osn);
-		}
-		buf = leveldown(buf);
-		a = sub(a,buf);
-		if(equal(a,z))
-		{
-			k = 0;
-			while(k < y-1)
+			
+			len1 = lenstr(a);
+			len2 = lenstr(c);
+			len = len1 - len2 -i;
+			unsigned char* b = copy(c);
+			check(b);
+			tempRes2[0] = '1';
+			tempRes2[1] = '\0';
+			while(len > 0)
 			{
-				d *= osn;
-				k++;
+				b = mulN(b,osn);
+				tempRes2 = mulN(tempRes2,osn);
+				len--;
 			}
-
-			res = mulN(res,d);
+			res = add(res,tempRes2);
+			tempB = copy(b);
+			check(tempB);
+			while(greater(a,b) || equal(a,b))
+			{
+				b = add(b,tempB);
+				res = add(res,tempRes2);
+				check(b);
+			}
+			b = sub(b,tempB);
+			res = sub(res,tempRes2);
+			
+			len1 = lenstr(a);
+			if(greater(b,a))
+			{
+				i++;
+			}
+			else
+			{
+				a = sub(a,b);
+				i = 1;
+			}
+			len2 = lenstr(a);
 		}
-		
 	}
-	return res;
 
+	res = cutzero(res);
+	check(res);
+	return res;
 }
 
-/*--------------MOD----------------*/
+/*=========================MOD=============================*/
 unsigned char* mod(unsigned char *t1, unsigned char *t2)
 {
-	unsigned char *a = NULL,*b= NULL,*c= NULL, *buf= NULL, *res= NULL;
-	int x,y,d,k,i;
-	int lenA, lenB, lenC;
+	int len1 = lenstr(t1);
+	int len2 = lenstr(t2);
+	int i = 0, len;
+	unsigned char* res = (unsigned char*)malloc(sizeof(unsigned char)*(len1+len2+zapas));
+	res[0] = '0';
+	res[1] = '\0';
+	unsigned char* a = t1;
+	unsigned char *tempB, *tempRes, *tempRes2 = (unsigned char*)malloc(sizeof(unsigned char)*(len1+len2+zapas));
+	
+	unsigned char* c = copy(t2);
+	check(a);
+	check(c);
+
+	if(greater(c,a)) return "0";
+	else
+	{
+		i = 1;
+		while(greater(a,c) || equal(a,c))
+		{
+			
+			len1 = lenstr(a);
+			len2 = lenstr(c);
+			len = len1 - len2 -i;
+			unsigned char *b = copy(c);
+			check(b);
+			tempRes2[0] = '1';
+			tempRes2[1] = '\0';
+			while(len > 0)
+			{
+				b = mulN(b,osn);
+				tempRes2 = mulN(tempRes2,osn);
+				len--;
+			}
+			res = add(res,tempRes2);
+			tempB = copy(b);
+			check(tempB);
+			while(greater(a,b) || equal(a,b))
+			{
+				b = add(b,tempB);
+				res = add(res,tempRes2);
+				check(b);
+			}
+			b = sub(b,tempB);
+			res = sub(res,tempRes2);
+			
+			if(greater(b,a))
+			{
+				i++;
+			}
+			else
+			{
+				a = sub(a,b);
+				i = 1;
+			}
+		}
+	}
+
+	a = cutzero(a);
+	check(a);
+	return a;
+}
+
+/*=========================POW=============================*/
+unsigned char *pows(unsigned char *t1, unsigned char *t2)
+{
+	unsigned char *res = (unsigned char*)malloc(sizeof(unsigned char)*2);
+	res[0] = '1';
+	res[1] = '\0';
 	unsigned char *z = (unsigned char*)malloc(sizeof(unsigned char)*2);
 	z[0] = '0';
 	z[1] = '\0';
-	res = (unsigned char*)malloc(sizeof(unsigned char)*1);
-	res[0] = '\0';
-	a = t1;
-	b = t2;
-
-	while(greater(a, b) || equal(a,b))
-	{
-		lenB = lenstr(b);
-		c = (unsigned char*)malloc(sizeof(unsigned char)*(lenB+1));
-		c[lenB] = '\0';
-		lenA = lenstr(a);
-		lenC = lenB;
-		i = 0;
-		while(i < lenB)
-		{
-			c[i] = a[lenA+i-lenC];
-			i++;
-		}
-		//
-		if(less(c,b))
-		{
-			c = levelup(c);
-			c[0] = a[lenA-lenC-1];
-		}
-		//
-		x = 0;
-
-		while(less(mulN(b,x),c) || equal(mulN(b,x),c))
-			x++;
-		x--;
-
-		
-		res  = levelup(res);
-		res[0] = x + 48;
-
-		buf = mulN(b,x);
-
-		y = 0;
-		d = 1;
-		while(less(buf,a) || equal(buf,a))
-		{
-			y++;
-			buf = mulN(buf,10);
-		}
-		buf = leveldown(buf);
-		a = sub(a,buf);
-		if(equal(a,z))
-		{
-			k = 0;
-			while(k < y-1)
-			{
-				d *= 10;
-				k++;
-			}
-
-			res = mulN(res,d);
-		}
-		
-	}
-	return a;
-
-}
-
-/*--------------POWS----------------*/
-unsigned char *pows(unsigned char *t1, unsigned char *t2)
-{
-	unsigned char *res = "1";
-	unsigned char *a = t1;
-	unsigned char *n = t2;
-	unsigned char *z = "0";
+	unsigned char *a = copy(t1);
+	unsigned char *n = copy(t2);
+	int *s = (int*)malloc(sizeof(int));
 
 
 	while (!(equal(n,z)))
 	{
-		if (!(equal(mod(n,"2"),z))) 
+		if (!(equal(mod(n,"2"),z)) || equal(n,"1")) 
 		{
 			res = mul(res,a);
 			n = sub(n,"1");
@@ -536,11 +395,195 @@ unsigned char *pows(unsigned char *t1, unsigned char *t2)
 			a = mul(a,a);
 			n = deg(n,"2");
 		}
+		
 	}
+	check(res);
 	return res;
 }
 
-/*--------------LEVELUP----------------*/
+/*----------------------------------------------------LOGIC----------------------------------------------------*/
+
+/*=========================EQUAL=============================*/
+int equal(unsigned char *t1, unsigned char *t2)
+{
+	int i = 0;
+	if (lenstr(t1) != lenstr(t2))
+		return 0;
+	while(i < lenstr(t1))
+	{
+		if (t1[i]!= t2[i])
+			return 0;
+		i++;
+	
+	}	
+	return 1;
+}
+
+/*=========================GREATER=============================*/
+int greater(unsigned char *t1, unsigned char *t2)
+{
+	if (lenstr(t1) != lenstr(t2))
+			return lenstr(t1) > lenstr(t2);
+
+	int i = lenstr(t1)-1;
+	while(i >= 0)
+	{
+		if (t1[i]!=t2[i])
+			return t1[i]>t2[i];
+		i--;
+	}
+
+	return 0;
+}
+
+/*=========================LESS=============================*/
+int less(unsigned char *t1, unsigned char *t2)
+{
+	if (lenstr(t1) != lenstr(t2))
+			return lenstr(t1) < lenstr(t2);
+
+	int i = lenstr(t1)-1;
+	while(i >= 0)
+	{
+		if (t1[i]!=t2[i])
+			return t1[i]<t2[i];
+		i--;
+	}
+	return 0;
+}
+
+/*----------------------------------------------------OTHER----------------------------------------------------*/
+
+/*=======================INPUT=============================*/
+unsigned char* input(char *fileName, int *s)
+{
+	FILE *f = fopen(fileName,"r");
+	int n = 0, i;
+	unsigned char temp;
+	unsigned char *t1;
+	int sign;
+
+	fseek(f,0,SEEK_END);
+	n = ftell(f);
+	rewind(f);
+	temp = fgetc(f);
+
+	if(temp == '-') 
+	{
+		sign = 1;
+		t1 = (unsigned char*)malloc(sizeof(unsigned char)*(n+zapas));
+		
+	}
+	else
+	{
+		sign = 0;
+		t1 = (unsigned char*)malloc(sizeof(unsigned char)*(n+1+zapas));
+		rewind(f);
+	}
+	
+	
+	i = 0;
+
+	fscanf(f,"%s",t1);
+	i++;
+	osn = 10;
+	dop = 48;
+	fclose(f);
+	*s = sign;
+	check(t1);
+	return t1;
+}
+
+/*=======================CHECK=============================*/
+void check(unsigned char *ch)
+{
+	int i = 0;
+	while(ch[i] >= 48 && ch[i] < 58)
+	{
+		i++;
+	}
+	ch[i] = '\0';
+}
+
+/*=======================COPY=============================*/
+unsigned char* copy(unsigned char* t1)
+{
+	unsigned char *t2;
+	int a = lenstr(t1), i = 0;
+	t2 = (unsigned char*)malloc(sizeof(unsigned char)*a);
+	while(t1[i])
+	{
+		t2[i] = t1[i];
+		i++;
+	}
+	
+	t2[i] = '\0';
+	check(t2);
+	return t2;
+	
+}
+
+/*=======================REVERSE=============================*/
+unsigned char* reverse(unsigned char* t1)
+{
+	int i;
+	check(t1);
+	unsigned char *t2 = (unsigned char*)malloc(sizeof(unsigned char)*lenstr(t1));
+	t2[lenstr(t1)] = '\0';
+	
+	i = 0;
+	while(i < lenstr(t1))
+	{
+		t2[lenstr(t1)-1 -i] = t1[i];
+		i++;
+	}
+	t2[i] = '\0';
+	check(t2);
+	return t2;
+}
+
+/*=======================OUTPUT=============================*/
+void output(unsigned char *t1, int *s)
+{
+	if(*s == '-')
+		printf("%c",'-');
+	int i = 0;
+	while(t1[i])
+	{
+
+		printf("%c", t1[i]);
+		i++;
+	}
+	printf("\n");
+	
+}
+
+/*=======================CUTZERO=============================*/
+unsigned char* cutzero(unsigned char *t1)
+{
+	while(t1[lenstr(t1)-1] == '0')
+	{
+		if(lenstr(t1) == 1 && t1[0] == '0') return t1;
+		t1[lenstr(t1)-1] = '\0';
+	}
+	check(t1);
+	return  t1;
+}
+
+/*=======================LENSTR=============================*/
+int lenstr(unsigned char *t1)
+{
+	int i = 0;
+	while(t1[i])
+		i++;
+
+	return i;
+}
+
+
+
+
+
 unsigned char* levelup(unsigned char *t1)
 {
 	int i;
@@ -552,11 +595,11 @@ unsigned char* levelup(unsigned char *t1)
 		t2[i] = t1[i-1];
 		i--;
 	}
+	check(t2);
 	return t2;
 
 }
 
-/*--------------LEVELDOWN----------------*/
 unsigned char* leveldown(unsigned char *t1)
 {
 	unsigned char *t2 = (unsigned char*)malloc(sizeof(unsigned char)*lenstr(t1));
@@ -566,22 +609,15 @@ unsigned char* leveldown(unsigned char *t1)
 		t2[i] = t1[i+1];
 		i++;
 	}
+	check(t2);
 	return t2;
 }
 
-/*--------------LENSTR----------------*/
-int lenstr(unsigned char *t1)
-{
-	int i = 0;
-	while(t1[i])
-		i++;
 
-	return i;
-}
 
-/*================BINARY==============*/
 
-/*---------------INPUT---------------*/
+
+/*-----------_BINARY-----------------*/
 unsigned char* input_bin(char *fileName)
 {
 	FILE *f = fopen(fileName,"rb");
@@ -611,11 +647,9 @@ unsigned char* input_bin(char *fileName)
 	return t1;
 }
 
-/*---------------OUTPUT---------------*/
 void output_bin(char *fileName, unsigned char *t1)
 {
 	FILE *f = fopen(fileName,"wb");
 	fwrite(t1,sizeof(unsigned char),lenstr(t1),f);
 	fclose(f);
 }
-
