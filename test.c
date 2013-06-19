@@ -303,7 +303,7 @@ unsigned char* deg(unsigned char *t1, unsigned char *t2)
 	unsigned char* c = copy(t2);
 	check(a);
 	check(c);
-
+	if(equal(res,c)) return "0";
 	if(greater(c,a)) return "0";
 	else
 	{
