@@ -1,6 +1,8 @@
 import sys
 import third
-
+if len(sys.argv) < 5:
+	print "INCORRECT INPUT"
+	exit()
 name_a = sys.argv[1]
 z = sys.argv[2]
 name_b = sys.argv[3]
